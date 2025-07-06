@@ -1,13 +1,13 @@
-enum Progress {
-    "TODO",
-    "IN PROGRESS",
-    "DONE"
+export enum Progress {
+    TODO = "TODO",
+    IN_PROGRESS = "IN PROGRESS",
+    DONE = "DONE",
 }
 
-enum Priority {
-    "HIGH",
-    "MEDIUM",
-    "LOW"
+export enum Priority {
+    HIGH = "HIGH",
+    MEDIUM = "MEDIUM",
+    LOW = "LOW"
 }
 
 export interface Task {
