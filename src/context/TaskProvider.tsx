@@ -9,14 +9,14 @@ interface Props {
 }
 
 export default function TaskContextProvider({ children }: Props) {
-    const [createdLayouts, setCreatedLayouts] = React.useState<Task[]>([]);
+    const [taskData, setTaskData] = React.useState<Task[]>([]);
 
-    const addCreatedLayout = (data: Task) => {
-        setCreatedLayouts(prev => [...prev, data])
+    const addData = (data: Task) => {
+        setTaskData(prev => [...prev, data])
     }
 
     return (
-        <TaskContext.Provider value={{ data: createdLayouts, changeData: addCreatedLayout }}>
+        <TaskContext.Provider value={{ data: taskData, changeData: addData }}>
             {children}
         </TaskContext.Provider>
     )
