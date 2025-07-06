@@ -1,36 +1,121 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FRONTEND ASSIGNMENT GUESTPEDIA `[TEST#2]`
 
-## Getting Started
+## Contributor
+Alex Cinatra Hutasoit as a intern applier as a Frontend Developer in Guestpedia.
 
-First, run the development server:
-
+## HOW TO USE
+Clone Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/alexchtst/frontend-assignment-guestpedia.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Change Directory
+```bash
+cd frontend-assignment-guestpedia
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Install All Modules
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start The Projects
+```bash
+npm run dev
+```
 
-## Learn More
+After that your bash will be running like this:
+Start The Projects
+```bash
+> frontend-assignment-guestpedia@0.1.0 dev
+> next dev --turbopack
 
-To learn more about Next.js, take a look at the following resources:
+   ▲ Next.js 15.3.5 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://your-ip:3000
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ ✓ Starting...
+ ✓ Ready in 2.9s
+ ○ Compiling / ...
+ ✓ Compiled / in 4.1s
+ GET / 200 in 4679ms
+```
+so you can access in your local computer in http://localhost:3000 or in http://your-ip:3000
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This Project also Provided in this link: 
+```bash
+https://frontend-assignment-guestpedia.vercel.app/
+```
 
-## Deploy on Vercel
+## Objective
+- Build a **task management application**, with the ability to **create**, **edit**, **delete**
+tasks and track progress.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- The recommended technology stack includes **NextJS**, **Typescript**, and
+**TailwindCSS**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Please complete this task within 7 days.
+
+## Requirements
+`General functionality:`
+- **Create task**: The user should be able to create a new task, consisting
+of ID (auto generate), title, description, progress, and priority. A
+newly created task should have “Medium” priority by default. **`[GF.1]`**
+- **Edit task**: The user should be able to edit task title, description, and
+priority. Please note that the ID is not editable. **`[GF.2]`**
+- **Delete task**: The user should be able to delete a task. **`[GF.3]`**
+
+`User Interface:`
+- Focus on desktop view **(minimum screen width 1024px)**. **`[UI.1]`**
+- **Drag-and-Drop**: Implement drag-and-drop functionality for changing
+the task’s progress **(example: moving tasks from "To Do" to "In
+Progress" or "Done")**. **`[UI.2]`**
+
+`State Management:`
+- Use a **state management library** to handle task data. **`[SM.1]`**
+- Implement a storage solution to **persist data** between page reloads.
+There is no need to implement an API or database, a browser storage
+should be enough. **`[SM.2]`**
+
+## Development Planning
+Objective checklist
+
+| Tech Requirements | DONE/UNDONE   | REASON    |
+| :---------------- | :------:      |:------:   |
+| NextJs            | `DONE`        |OBJECTIVE  |
+| TypeScript        | `DONE`        |OBJECTIVE  |
+| Tailwindcss       | `DONE`        |OBJECTIVE  |
+
+### Reasoning 1
+In this project we are going to create a CRUD app with drag-and-drop implementation of changing task progress. There is no api needed in this case, so we are going to store data in local storage to preserved presist data when the page is reload and page refreshed. 
+
+For the state management i'm using the use context so each component can handle the same data context and make it easy to develop.
+
+In this case i'm using `DnD-Kit` to implement the drag and drop task through the progress canvas. So the **dragable** will be the task component and the **dropable/dropzone** will be the progress container.
+
+Each task have id (auto generate), title, description, progress, and priority then the task data should be like this:
+```json
+{
+    "id": "12b-1238-bc3",
+    "title": "Cillum ullamco cillum aliqua.",
+    "description": "Fugiat excepteur labore reprehenderit laborum.",
+    "progress": "TODO",
+    "priority": "medium"
+}
+```
+where the progress is enum of this : `["TODO, IN PROGRESS", "DONE"]`. While the priority is enum of this : `["HIGH", "MEDIUM", "LOW"]`
+
+this reasoning is also satisfy the **`[SM.1]`** **`[SM.2]`** **`[UI.1]`**
+
+### Development Progress
+General Functionality checklist
+| Requirements | DONE/UNDONE   | REASON    |
+| :---------------- | :------:      |:------:   |
+| Task Interface ||Reasoning 1|
+| Progress and Priority Enum ||Reasoning 1|
+| Task Context ||SM.1|
+| TaskID Generator ||GF.1|
+| Task Component & Progress Component ||GF.1|
+| Create Task ||GF.1|
+| Edit Task ||GF.2|
+| Delete Task ||GF.3|
