@@ -1,7 +1,7 @@
 # FRONTEND ASSIGNMENT GUESTPEDIA `[TEST#2]`
 
 ## Contributor
-Alex Cinatra Hutasoit as a intern applier as a Frontend Developer in Guestpedia.
+Alex Cinatra Hutasoit as a intern applier for Frontend Developer in Guestpedia.
 
 ## HOW TO USE
 Clone Repository
@@ -25,7 +25,6 @@ npm run dev
 ```
 
 After that your bash will be running like this:
-Start The Projects
 ```bash
 > frontend-assignment-guestpedia@0.1.0 dev
 > next dev --turbopack
@@ -96,7 +95,7 @@ In this case i'm using `DnD-Kit` to implement the drag and drop task through the
 Each task have id (auto generate), title, description, progress, and priority then the task data should be like this:
 ```json
 {
-    "id": "12b-1238-bc3",
+    "id": "SM-12",
     "title": "Cillum ullamco cillum aliqua.",
     "description": "Fugiat excepteur labore reprehenderit laborum.",
     "progress": "TODO",
@@ -111,11 +110,12 @@ this reasoning is also satisfy the **`[SM.1]`** **`[SM.2]`** **`[UI.1]`**
 General Functionality checklist
 | Requirements | DONE/UNDONE   | REASON    |
 | :---------------- | :------:      |:------:   |
-| Task Interface ||Reasoning 1|
-| Progress and Priority Enum ||Reasoning 1|
-| Task Context ||SM.1|
-| TaskID Generator ||GF.1|
-| Task Component & Progress Component ||GF.1|
+| Task Interface | `DONE` |Reasoning 1|
+| Progress and Priority Enum | `DONE` |Reasoning 1|
+| Task Context | `DONE` |SM.1|
+| TaskID Generator | `DONE` |GF.1|
+| Task Component & Progress Component | `INPROGRESS` |GF.1|
 | Create Task ||GF.1|
 | Edit Task ||GF.2|
+| Change Priority ||UI.2|
 | Delete Task ||GF.3|
