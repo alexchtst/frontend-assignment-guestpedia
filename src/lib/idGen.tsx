@@ -11,7 +11,7 @@ export default function GenerateId(salter: number = 7) {
 
     const rdID = Math.floor(Math.random() * (parseInt(timestamp) + salter));
 
-    const id = `id-${rdID}`;
+    const id = `SM-${rdID}`;
 
     return id;
 }
