@@ -114,8 +114,8 @@ General Functionality checklist
 | Progress and Priority Enum | `DONE` |Reasoning 1|
 | Task Context | `DONE` |SM.1|
 | TaskID Generator | `DONE` |GF.1|
-| Task Component & Progress Component | `INPROGRESS` |GF.1|
-| Create Task ||GF.1|
+| Task Component & Progress Component | `DONE` |GF.1|
+| Create Task | `DONE` |GF.1|
 | Edit Task ||GF.2|
 | Change Priority ||UI.2|
 | Delete Task ||GF.3|

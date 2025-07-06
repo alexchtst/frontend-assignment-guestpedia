@@ -5,87 +5,112 @@ import { useDroppable } from '@dnd-kit/core';
 
 import { Priority, Progress, Task } from "@/types/task";
 import TaskComponent from "./TaskComponent";
-
-const tasks: Task[] = [
-    {
-        id: "task-001",
-        title: "Design Landing Page",
-        description: "Create the layout and visual style for the homepage.",
-        progress: Progress.TODO,
-        priority: Priority.HIGH
-    },
-    {
-        id: "task-002",
-        title: "Implement Authentication",
-        description: "Build login and registration functionality.",
-        progress: Progress.IN_PROGRESS,
-        priority: Priority.HIGH
-    },
-    {
-        id: "task-003",
-        title: "Set up CI/CD",
-        description: "Configure automated builds and deployments using GitHub Actions.",
-        progress: Progress.TODO,
-        priority: Priority.MEDIUM
-    },
-    {
-        id: "task-004",
-        title: "Write Unit Tests",
-        description: "Add tests for critical components and utility functions.",
-        progress: Progress.DONE,
-        priority: Priority.LOW
-    },
-    {
-        id: "task-005",
-        title: "Optimize Performance",
-        description: "Audit the app and fix performance bottlenecks.",
-        progress: Progress.IN_PROGRESS,
-        priority: Priority.MEDIUM
-    },
-    {
-        id: "task-006",
-        title: "Deploy to Production",
-        description: "Push the stable build to the production environment.",
-        progress: Progress.TODO,
-        priority: Priority.HIGH
-    }
-];
-
+import GenerateId from '@/lib/idGen';
+import TaskContext from '@/context/Taskcontext';
 
 interface CompProps {
+    tasks: Task[]
     progress: Progress
     total: number;
 }
 
-export default function ProgressCanvas({ progress, total = 0 }: CompProps) {
-    const { isOver, setNodeRef } = useDroppable({
+export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps) {
+
+    const { changeData } = React.useContext(TaskContext);
+
+    // form submission
+    const [openField, setOpenField] = React.useState(false);
+    const [title, setTitle] = React.useState('');
+    const [desc, setDesc] = React.useState('');
+    const [priority, setPriority] = React.useState<Priority>(Priority.MEDIUM);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // some validation
+        if (!title.trim()) return;
+        if (!desc.trim()) return;
+
+        const task: Task = {
+            id: GenerateId(),
+            title: title,
+            description: desc,
+            progress: progress,
+            // set as default to medium
+            priority: priority
+        }
+
+        console.log(task);
+
+        setTitle('');
+        setDesc('');
+        setPriority(Priority.MEDIUM);
+        setOpenField(false);
+        changeData(task);
+    }
+
+    const { setNodeRef } = useDroppable({
         id: progress,
     });
-    const style = {
-        opacity: isOver ? 0.8 : 1,
-    };
+
     return (
         <div
-            ref={setNodeRef} style={style}
-            className="w-[30%] h-[35vw] rounded-md border shadow-md bg-gray-100 hover:shadow-lg p-5"
+            ref={setNodeRef}
+            className="w-[30%] min-h-[35vw] max-h-fit rounded-md shadow-md bg-gray-200 hover:shadow-lg flex flex-col justify-between p-5"
         >
-            <p className="pl-5 space-x-3 pb-5">
+            <div className="pl-5 space-x-2 pb-5">
                 <span
-                    className="p-1 bg-gray-300 rounded-sm"
+                    className={
+                        `p-1 bg-gray-300 rounded-sm text-sm font-bold
+                        ${progress === Progress.DONE ?
+                            'text-green-500' : progress === Progress.IN_PROGRESS ?
+                                'text-blue-500' : 'text-black'
+                        }`
+                    }
                 >
                     {progress}
                 </span>
                 <span>{total}</span>
-            </p>
-            <div className="p-1 space-y-1 invisible-scrollbar overflow-y-scroll h-[80%]">
+            </div>
+            <div className="p-1 space-y-1 invisible-scrollbar overflow-y-auto h-[80%]">
                 {tasks.map((task, taskIdx) =>
                     <TaskComponent key={taskIdx} data={task} />
                 )}
             </div>
-            {/* create field */}
-            <button className="mt-5 cursor-pointer">
-                Create
-            </button>
+            <div className='mt-5 space-y-2'>
+                <button
+                    className={`cursor-pointer bg-blue-800 py-2 px-5 text-white rounded-md ${openField ? 'hidden' : ''}`}
+                    onClick={() => { setOpenField(true) }}
+                >
+                    Create
+                </button>
+                <div className={`${openField ? '' : 'hidden'} space-y-3`}>
+                    <form
+                        className='space-y-2 bg-white p-2 rounded-md'
+                        onSubmit={handleSubmit}
+                    >
+                        <input
+                            type="text"
+                            placeholder='Title'
+                            className='border w-full p-2 rounded-sm'
+                            required
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <textarea
+                            placeholder='input the description here'
+                            rows={5}
+                            className='border w-full p-2 rounded-sm'
+                            required
+                            value={desc}
+                            onChange={(e) => setDesc(e.target.value)}
+                        />
+                        <button className="cursor-pointer bg-blue-800 py-2 px-5 text-white rounded-md" type='submit'>
+                            Create
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }

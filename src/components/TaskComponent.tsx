@@ -3,7 +3,9 @@
 import React from "react"
 import { useDraggable } from "@dnd-kit/core"
 import { CSS } from "@dnd-kit/utilities"
-import { Task } from "@/types/task"
+import { Priority, Task } from "@/types/task"
+
+import { SquareCheck, ChevronsDown, ChevronUp, AlignJustify } from "lucide-react"
 
 interface CompProps {
     data: Task;
@@ -27,10 +29,19 @@ export default function TaskComponent({ data }: CompProps) {
             {...listeners}
             {...attributes}
         >
-            <p>Voluptate commodo dolore id eiusmod ullamco deserunt.</p>
+            <p>{data.title}</p>
             <div className="flex w-full justify-between items-center">
-                <div>Icon</div>
-                <div>{data.priority}</div>
+                <div className="flex justify-center items-center space-x-1 text-[1vw]">
+                    <SquareCheck color="blue" width={15} />
+                    <p className="font-semibold text-gray-500">{data.id}</p>
+                </div>
+                <div>
+                    {
+                        data.priority === Priority.MEDIUM ? <AlignJustify color="#EF9F08" width={20} /> :
+                            data.priority === Priority.LOW ? <ChevronsDown color="blue" width={25} height={20} /> :
+                                <ChevronUp color="red" width={25} height={20} />
+                    }
+                </div>
             </div>
         </div>
     )
