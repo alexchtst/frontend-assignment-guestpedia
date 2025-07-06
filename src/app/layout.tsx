@@ -27,7 +27,8 @@ export default function RootLayout({
     <html lang="en">
       <TaskContextProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`} 
+          cz-shortcut-listen="true" suppressHydrationWarning={true}
         >
           {children}
         </body>
