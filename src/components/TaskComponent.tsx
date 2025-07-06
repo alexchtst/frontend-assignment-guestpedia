@@ -7,7 +7,6 @@ import { Priority, Task } from "@/types/task"
 
 import { SquareCheck, ChevronsDown, ChevronUp, AlignJustify } from "lucide-react"
 
-
 interface CompProps {
     data: Task;
 }
@@ -30,7 +29,7 @@ export default function TaskComponent({ data }: CompProps) {
             {...listeners}
             {...attributes}
         >
-            <p>Voluptate commodo dolore id eiusmod ullamco deserunt.</p>
+            <p>{data.title}</p>
             <div className="flex w-full justify-between items-center">
                 <div className="flex justify-center items-center space-x-1 text-[1vw]">
                     <SquareCheck color="blue" width={15} />
