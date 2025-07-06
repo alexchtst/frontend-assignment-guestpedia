@@ -3,8 +3,10 @@
 import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
 
-import { Progress, Task } from "@/types/task";
+import { Priority, Progress, Task } from "@/types/task";
 import TaskComponent from "./TaskComponent";
+import GenerateId from '@/lib/idGen';
+import TaskContext from '@/context/Taskcontext';
 
 interface CompProps {
     tasks: Task[]
@@ -13,7 +15,39 @@ interface CompProps {
 }
 
 export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps) {
+
+    const { changeData } = React.useContext(TaskContext);
+
+    // form submission
     const [openField, setOpenField] = React.useState(false);
+    const [title, setTitle] = React.useState('');
+    const [desc, setDesc] = React.useState('');
+    const [priority, setPriority] = React.useState<Priority>(Priority.MEDIUM);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // some validation
+        if (!title.trim()) return;
+        if (!desc.trim()) return;
+
+        const task: Task = {
+            id: GenerateId(),
+            title: title,
+            description: desc,
+            progress: progress,
+            // set as default to medium
+            priority: priority
+        }
+
+        console.log(task);
+
+        setTitle('');
+        setDesc('');
+        setPriority(Priority.MEDIUM);
+        setOpenField(false);
+        changeData(task);
+    }
 
     const { setNodeRef } = useDroppable({
         id: progress,
@@ -44,22 +78,36 @@ export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps
                 )}
             </div>
             <div className='mt-5 space-y-2'>
-                <button className="cursor-pointer bg-blue-800 py-2 px-5 text-white rounded-md" onClick={() => { setOpenField(!openField) }}>
+                <button
+                    className={`cursor-pointer bg-blue-800 py-2 px-5 text-white rounded-md ${openField ? 'hidden' : ''}`}
+                    onClick={() => { setOpenField(true) }}
+                >
                     Create
                 </button>
                 <div className={`${openField ? '' : 'hidden'} space-y-3`}>
                     <form
                         className='space-y-2 bg-white p-2 rounded-md'
-                        action=""
+                        onSubmit={handleSubmit}
                     >
                         <input
-                            type="text" placeholder='Title' className='border w-full p-2 rounded-sm'
+                            type="text"
+                            placeholder='Title'
+                            className='border w-full p-2 rounded-sm'
+                            required
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
                         />
                         <textarea
                             placeholder='input the description here'
                             rows={5}
                             className='border w-full p-2 rounded-sm'
+                            required
+                            value={desc}
+                            onChange={(e) => setDesc(e.target.value)}
                         />
+                        <button className="cursor-pointer bg-blue-800 py-2 px-5 text-white rounded-md" type='submit'>
+                            Create
+                        </button>
                     </form>
                 </div>
             </div>
