@@ -74,7 +74,8 @@ export default function TaskContextProvider({ children }: Props) {
                     : task
             );
 
-            // Store updated data in localStorage
+            console.log(updated);
+
             localStorage.setItem("tasks", JSON.stringify(updated));
 
             return updated;
@@ -85,7 +86,6 @@ export default function TaskContextProvider({ children }: Props) {
         setTaskData(prev => {
             const updated = prev.filter(task => task.id !== id);
 
-            // Sync to localStorage
             localStorage.setItem("tasks", JSON.stringify(updated));
 
             return updated;

@@ -11,7 +11,7 @@ interface CompProps {
 }
 
 export default function EditTaskmodal({ data }: CompProps) {
-    const { handleEditDatatask } = React.useContext(TaskContext);
+    const { setEditDatatask, editData } = React.useContext(TaskContext);
 
     // form submission
     const [title, setTitle] = React.useState<string>(data?.title ?? '');
@@ -35,21 +35,21 @@ export default function EditTaskmodal({ data }: CompProps) {
         if (!title.trim()) return;
         if (!desc.trim()) return;
 
-        const updatedTask: Task = {
-            id: '1',
-            title: title,
-            description: desc,
-            progress: progress,
-            // set as default to medium
-            priority: priority
+        if (data) {
+            const updated: Task = {
+                id: data.id,
+                title: title,
+                description: desc,
+                priority: priority,
+                progress: progress,
+            }
+            editData(updated)
+        } else {
+            console.log("data kosong")
         }
 
-        console.log(updatedTask);
+        setEditDatatask(null);
 
-        setTitle('');
-        setDesc('');
-        setPriority(Priority.MEDIUM);
-        setProgress(progress);
     }
 
     return (
@@ -63,7 +63,7 @@ export default function EditTaskmodal({ data }: CompProps) {
             <div className='flex justify-center items-center w-full h-full'>
                 <div className='bg-white w-[50vw] h-[30vw] rounded-md p-8'>
                     <div className="w-full flex justify-end items-end pb-5">
-                        <X className="cursor-pointer" onClick={() => { handleEditDatatask(null) }} />
+                        <X className="cursor-pointer" onClick={() => { setEditDatatask(null) }} />
                     </div>
                     <form
                         className='space-y-2 bg-white p-2 rounded-md'
