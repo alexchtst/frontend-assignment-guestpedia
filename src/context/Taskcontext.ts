@@ -5,6 +5,8 @@ export interface TaskContextInterface {
   // for data interface
   data: Task[];
   storeData: (d: Task) => void;
+  editData: (d: Task) => void;
+  deleteData: (id: string) => void;
   groupTasksByProgress: (d: Task[]) => {
     done: Task[];
     inprogress: Task[];
@@ -14,19 +16,21 @@ export interface TaskContextInterface {
 
   // for modal interface
   editDatatask: Task | null;
-  handleEditDatatask: (d: Task | null) => void;
+  setEditDatatask: (d: Task | null) => void;
 }
 
 const TaskContext = React.createContext<TaskContextInterface>({
   // for data
   data: [],
   storeData: () => {},
+  editData: () => {},
+  deleteData: () => {},
   groupTasksByProgress: () => ({ done: [], inprogress: [], todo: [] }),
   changeTaskProgress: () => {},
 
   // for modal
   editDatatask: null,
-  handleEditDatatask: () => {},
+  setEditDatatask: () => {},
 });
 
 export default TaskContext;
