@@ -7,10 +7,16 @@ import { Progress } from "@/types/task"
 
 import TaskContext from '@/context/Taskcontext';
 import { useContext } from 'react';
+import EditTaskmodal from '@/components/EditTaskModal';
 
 
 export default function Home() {
-  const { data, groupTasksByProgress, changeTaskProgress } = useContext(TaskContext);
+  const {
+    data,
+    groupTasksByProgress,
+    changeTaskProgress,
+    editDatatask
+  } = useContext(TaskContext);
 
   function handleDragEndEvent(e: DragEndEvent) {
     const { active, over } = e;
@@ -29,6 +35,9 @@ export default function Home() {
 
   return (
     <DndContext onDragEnd={handleDragEndEvent}>
+      
+      <EditTaskmodal data={editDatatask} />
+
       <div className="flex w-full min-h-screen justify-center items-center">
         <div className="flex flex-row justify-around w-full py-10">
           <ProgressCanvas
