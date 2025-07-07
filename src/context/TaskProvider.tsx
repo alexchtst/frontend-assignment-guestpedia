@@ -48,8 +48,26 @@ export default function TaskContextProvider({ children }: Props) {
         };
     }
 
+    const exchangeTaskProgress = (taskId: string, newProgress: Progress) => {
+        setTaskData(prev => {
+            const updated = prev.map(task =>
+                task.id === taskId
+                    ? { ...task, progress: newProgress }
+                    : task
+            );
+
+            localStorage.setItem("tasks", JSON.stringify(updated));
+            return updated;
+        });
+    };
+
     return (
-        <TaskContext.Provider value={{ data: taskData, changeData: addData, groupTasksByProgress: getTaskByProgress }}>
+        <TaskContext.Provider value={{
+            data: taskData,
+            storeData: addData,
+            groupTasksByProgress: getTaskByProgress,
+            changeTaskProgress: exchangeTaskProgress
+        }}>
             {children}
         </TaskContext.Provider>
     )

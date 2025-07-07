@@ -8,6 +8,8 @@ import TaskComponent from "./TaskComponent";
 import GenerateId from '@/lib/idGen';
 import TaskContext from '@/context/Taskcontext';
 
+import { OctagonX } from "lucide-react"
+
 interface CompProps {
     tasks: Task[]
     progress: Progress
@@ -16,7 +18,7 @@ interface CompProps {
 
 export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps) {
 
-    const { changeData } = React.useContext(TaskContext);
+    const { storeData } = React.useContext(TaskContext);
 
     // form submission
     const [openField, setOpenField] = React.useState(false);
@@ -46,19 +48,22 @@ export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps
         setDesc('');
         setPriority(Priority.MEDIUM);
         setOpenField(false);
-        changeData(task);
+        storeData(task);
     }
 
     const { setNodeRef } = useDroppable({
-        id: progress,
+        id: progress.toString(),
     });
 
     return (
         <div
             ref={setNodeRef}
-            className="w-[30%] min-h-[35vw] max-h-fit rounded-md shadow-md bg-gray-200 hover:shadow-lg flex flex-col justify-between p-5"
+            className={`
+                    relative w-[30%] rounded-md shadow-md bg-gray-200 hover:shadow-lg flex flex-col justify-between p-5 
+                    ${!openField ? 'h-[35vw]' : 'h-[50vw]'}
+                `}
         >
-            <div className="pl-5 space-x-2 pb-5">
+            <div className="pl-5 space-x-2 pb-2">
                 <span
                     className={
                         `p-1 bg-gray-300 rounded-sm text-sm font-bold
@@ -84,23 +89,39 @@ export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps
                 >
                     Create
                 </button>
-                <div className={`${openField ? '' : 'hidden'} space-y-3`}>
+                <div className={`relative ${openField ? '' : 'hidden'} space-y-3`}>
+                    <div className='absolute -right-3 -top-3 bg-red-500 p-1 rounded-full cursor-pointer' onClick={() => setOpenField(false)}>
+                        <OctagonX color='white' size={15} />
+                    </div>
                     <form
                         className='space-y-2 bg-white p-2 rounded-md'
                         onSubmit={handleSubmit}
                     >
-                        <input
-                            type="text"
-                            placeholder='Title'
-                            className='border w-full p-2 rounded-sm'
-                            required
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
+                        <div className='flex space-x-2'>
+                            <input
+                                type="text"
+                                placeholder='Title'
+                                className='border w-full p-2 rounded-sm'
+                                required
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                            <select
+                                className="border w-full p-2 rounded-sm"
+                                value={priority}
+                                onChange={(e) => setPriority(e.target.value as Priority)}
+                            >
+                                {Object.values(Priority).map((value) => (
+                                    <option key={value} value={value}>
+                                        {value}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                         <textarea
                             placeholder='input the description here'
-                            rows={5}
-                            className='border w-full p-2 rounded-sm'
+                            rows={2}
+                            className='border w-full p-2 rounded-sm resize-none'
                             required
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}

@@ -16,9 +16,11 @@ export default function TaskComponent({ data }: CompProps) {
         id: data.id,
     });
 
-    const style = {
-        // Outputs `translate3d(x, y, 0)`
+    const style: React.CSSProperties = {
         transform: CSS.Translate.toString(transform),
+        zIndex: transform ? 50 : 1,
+        position: transform ? 'absolute' : 'static',
+        width: transform ? '90%' : '100%'
     };
 
     return (

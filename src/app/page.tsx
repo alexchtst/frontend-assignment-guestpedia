@@ -10,22 +10,27 @@ import { useContext } from 'react';
 
 
 export default function Home() {
+  const { data, groupTasksByProgress, changeTaskProgress } = useContext(TaskContext);
 
   function handleDragEndEvent(e: DragEndEvent) {
     const { active, over } = e;
 
     if (over && active.id !== over.id) {
       console.log(`Dragged ${active.id} over ${over.id}`);
+      if (over) {
+        const taskId = active.id.toString();
+        const newProgress = over.id.toString() as Progress;
+        changeTaskProgress(taskId, newProgress);
+      }
     }
   }
 
-  const { data, groupTasksByProgress } = useContext(TaskContext);
   const { done, inprogress, todo } = groupTasksByProgress(data);
 
   return (
     <DndContext onDragEnd={handleDragEndEvent}>
       <div className="flex w-full min-h-screen justify-center items-center">
-        <div className="flex flex-row justify-around w-full h-fit">
+        <div className="flex flex-row justify-around w-full py-10">
           <ProgressCanvas
             progress={Progress.TODO}
             total={todo.length}

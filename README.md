@@ -117,5 +117,5 @@ General Functionality checklist
 | Task Component & Progress Component | `DONE` |GF.1|
 | Create Task | `DONE` |GF.1|
 | Edit Task ||GF.2|
-| Change Priority ||UI.2|
+| Change Priority | `DONE` |UI.2|
 | Delete Task ||GF.3|
