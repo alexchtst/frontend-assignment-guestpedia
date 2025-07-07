@@ -62,18 +62,48 @@ export default function TaskContextProvider({ children }: Props) {
         });
     };
 
-    const handleEditDatatask = (d: Task | null) => {
+    const setEditDatatask = (d: Task | null) => {
         setEditedTaskData(d);
     }
+
+    const handleEditData = (d: Task) => {
+        setTaskData(prev => {
+            const updated = prev.map(task =>
+                task.id === d.id
+                    ? { ...task, ...d, id: task.id }
+                    : task
+            );
+
+            // Store updated data in localStorage
+            localStorage.setItem("tasks", JSON.stringify(updated));
+
+            return updated;
+        });
+    };
+
+    const handleDeleteTaskById = (id: string) => {
+        setTaskData(prev => {
+            const updated = prev.filter(task => task.id !== id);
+
+            // Sync to localStorage
+            localStorage.setItem("tasks", JSON.stringify(updated));
+
+            return updated;
+        });
+    };
+
+
 
     return (
         <TaskContext.Provider value={{
             data: taskData,
             editDatatask: editedTaskData,
             storeData: addData,
+            editData: handleEditData,
+            deleteData: handleDeleteTaskById,
             groupTasksByProgress: getTaskByProgress,
             changeTaskProgress: exchangeTaskProgress,
-            handleEditDatatask: handleEditDatatask,
+            setEditDatatask: setEditDatatask,
         }}>
             {children}
         </TaskContext.Provider>
