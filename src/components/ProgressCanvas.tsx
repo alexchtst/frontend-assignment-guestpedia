@@ -18,7 +18,7 @@ interface CompProps {
 
 export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps) {
 
-    const { changeData } = React.useContext(TaskContext);
+    const { storeData } = React.useContext(TaskContext);
 
     // form submission
     const [openField, setOpenField] = React.useState(false);
@@ -48,7 +48,7 @@ export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps
         setDesc('');
         setPriority(Priority.MEDIUM);
         setOpenField(false);
-        changeData(task);
+        storeData(task);
     }
 
     const { setNodeRef } = useDroppable({
