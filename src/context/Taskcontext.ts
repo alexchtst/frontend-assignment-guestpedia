@@ -2,6 +2,7 @@ import { Progress, Task } from "@/types/task";
 import React from "react";
 
 export interface TaskContextInterface {
+  // for data interface
   data: Task[];
   storeData: (d: Task) => void;
   groupTasksByProgress: (d: Task[]) => {
@@ -10,13 +11,22 @@ export interface TaskContextInterface {
     todo: Task[];
   };
   changeTaskProgress: (taskId: string, progress: Progress) => void;
+
+  // for modal interface
+  editDatatask: Task | null;
+  handleEditDatatask: (d: Task | null) => void;
 }
 
 const TaskContext = React.createContext<TaskContextInterface>({
+  // for data
   data: [],
   storeData: () => {},
   groupTasksByProgress: () => ({ done: [], inprogress: [], todo: [] }),
-  changeTaskProgress: () => {}
+  changeTaskProgress: () => {},
+
+  // for modal
+  editDatatask: null,
+  handleEditDatatask: () => {},
 });
 
 export default TaskContext;

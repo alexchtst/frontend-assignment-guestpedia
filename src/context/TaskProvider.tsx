@@ -10,6 +10,7 @@ interface Props {
 
 export default function TaskContextProvider({ children }: Props) {
     const [taskData, setTaskData] = React.useState<Task[]>([]);
+    const [editedTaskData, setEditedTaskData] = React.useState<Task | null>(null);
 
     React.useEffect(() => {
         const stored = localStorage.getItem("tasks");
@@ -61,12 +62,18 @@ export default function TaskContextProvider({ children }: Props) {
         });
     };
 
+    const handleEditDatatask = (d: Task | null) => {
+        setEditedTaskData(d);
+    }
+
     return (
         <TaskContext.Provider value={{
             data: taskData,
+            editDatatask: editedTaskData,
             storeData: addData,
             groupTasksByProgress: getTaskByProgress,
-            changeTaskProgress: exchangeTaskProgress
+            changeTaskProgress: exchangeTaskProgress,
+            handleEditDatatask: handleEditDatatask,
         }}>
             {children}
         </TaskContext.Provider>
