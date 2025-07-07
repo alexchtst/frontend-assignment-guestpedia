@@ -102,9 +102,9 @@ Each task have id (auto generate), title, description, progress, and priority th
     "priority": "medium"
 }
 ```
-where the progress is enum of this : `["TODO, IN PROGRESS", "DONE"]`. While the priority is enum of this : `["HIGH", "MEDIUM", "LOW"]`
+where the progress is enum of this : `["TODO, IN PROGRESS", "DONE"]`. While the priority is enum of this : `["HIGH", "MEDIUM", "LOW"]` this reasoning is also satisfy the **`[SM.1]`** **`[SM.2]`** **`[UI.1]`**.
 
-this reasoning is also satisfy the **`[SM.1]`** **`[SM.2]`** **`[UI.1]`**
+To Implement the CRUD i need a function to do so, it's for create task **[storeData]**, edit data (by id becase id is not editable) `[GF.2]` with **editData** and id is used for delete data too in **deleteData**.
 
 ### Development Progress
 General Functionality checklist
@@ -116,6 +116,6 @@ General Functionality checklist
 | TaskID Generator | `DONE` |GF.1|
 | Task Component & Progress Component | `DONE` |GF.1|
 | Create Task | `DONE` |GF.1|
-| Edit Task ||GF.2|
+| Edit Task | `DONE` |GF.2|
 | Change Priority | `DONE` |UI.2|
-| Delete Task ||GF.3|
+| Delete Task | `DONE` |GF.3|
