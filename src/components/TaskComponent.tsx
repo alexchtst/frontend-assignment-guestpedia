@@ -13,7 +13,7 @@ interface CompProps {
 }
 
 export default function TaskComponent({ data }: CompProps) {
-    const { handleEditDatatask } = React.useContext(TaskContext);
+    const { setEditDatatask, deleteData } = React.useContext(TaskContext);
 
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: data.id,
@@ -57,11 +57,14 @@ export default function TaskComponent({ data }: CompProps) {
                 <div className="flex items-center space-x-2">
                     <button
                         className="px-2 py-1 bg-yellow-300 text-[10px] rounded-lg font-semibold cursor-pointer hover:bg-yellow-500"
-                        onClick={() => { handleEditDatatask(data) }}
+                        onClick={() => { setEditDatatask(data) }}
                     >
                         edit
                     </button>
-                    <button className="px-2 py-1 bg-red-500 text-[10px] rounded-lg font-semibold cursor-pointer text-white hover:bg-red-800">
+                    <button
+                        className="px-2 py-1 bg-red-500 text-[10px] rounded-lg font-semibold cursor-pointer text-white hover:bg-red-800"
+                        onClick={() => deleteData(data.id.toString())}
+                    >
                         delete
                     </button>
                 </div>
