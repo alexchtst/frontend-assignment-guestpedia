@@ -10,6 +10,7 @@ interface Props {
 
 export default function TaskContextProvider({ children }: Props) {
     const [taskData, setTaskData] = React.useState<Task[]>([]);
+    const [editedTaskData, setEditedTaskData] = React.useState<Task | null>(null);
 
     React.useEffect(() => {
         const stored = localStorage.getItem("tasks");
@@ -61,12 +62,48 @@ export default function TaskContextProvider({ children }: Props) {
         });
     };
 
+    const setEditDatatask = (d: Task | null) => {
+        setEditedTaskData(d);
+    }
+
+    const handleEditData = (d: Task) => {
+        setTaskData(prev => {
+            const updated = prev.map(task =>
+                task.id === d.id
+                    ? { ...task, ...d, id: task.id }
+                    : task
+            );
+
+            console.log(updated);
+
+            localStorage.setItem("tasks", JSON.stringify(updated));
+
+            return updated;
+        });
+    };
+
+    const handleDeleteTaskById = (id: string) => {
+        setTaskData(prev => {
+            const updated = prev.filter(task => task.id !== id);
+
+            localStorage.setItem("tasks", JSON.stringify(updated));
+
+            return updated;
+        });
+    };
+
+
+
     return (
         <TaskContext.Provider value={{
             data: taskData,
+            editDatatask: editedTaskData,
             storeData: addData,
+            editData: handleEditData,
+            deleteData: handleDeleteTaskById,
             groupTasksByProgress: getTaskByProgress,
-            changeTaskProgress: exchangeTaskProgress
+            changeTaskProgress: exchangeTaskProgress,
+            setEditDatatask: setEditDatatask,
         }}>
             {children}
         </TaskContext.Provider>
