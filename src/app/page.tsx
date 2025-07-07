@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <DndContext onDragEnd={handleDragEndEvent}>
       <div className="flex w-full min-h-screen justify-center items-center">
-        <div className="flex flex-row justify-around w-full h-fit">
+        <div className="flex flex-row justify-around w-full py-10">
           <ProgressCanvas
             progress={Progress.TODO}
             total={todo.length}
