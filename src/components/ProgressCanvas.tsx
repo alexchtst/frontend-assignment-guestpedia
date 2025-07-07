@@ -52,14 +52,14 @@ export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps
     }
 
     const { setNodeRef } = useDroppable({
-        id: progress,
+        id: progress.toString(),
     });
 
     return (
         <div
             ref={setNodeRef}
             className={`
-                    w-[30%] rounded-md shadow-md bg-gray-200 hover:shadow-lg flex flex-col justify-between p-5 
+                    relative w-[30%] rounded-md shadow-md bg-gray-200 hover:shadow-lg flex flex-col justify-between p-5 
                     ${!openField ? 'h-[35vw]' : 'h-[50vw]'}
                 `}
         >
