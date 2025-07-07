@@ -10,16 +10,21 @@ import { useContext } from 'react';
 
 
 export default function Home() {
+  const { data, groupTasksByProgress, changeTaskProgress } = useContext(TaskContext);
 
   function handleDragEndEvent(e: DragEndEvent) {
     const { active, over } = e;
 
     if (over && active.id !== over.id) {
       console.log(`Dragged ${active.id} over ${over.id}`);
+      if (over) {
+        const taskId = active.id.toString();
+        const newProgress = over.id.toString() as Progress;
+        changeTaskProgress(taskId, newProgress);
+      }
     }
   }
 
-  const { data, groupTasksByProgress } = useContext(TaskContext);
   const { done, inprogress, todo } = groupTasksByProgress(data);
 
   return (
