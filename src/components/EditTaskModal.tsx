@@ -47,7 +47,7 @@ export default function EditTaskmodal({ data }: ComponentDataInterface) {
                 editData(updated)
                 handleShow({ title: "Auditing Berhasil", content: "data berhasil di edit" })
             } else {
-                handleShow({ title: "Tidak Mengaudit", content: "tidak ada data yang berhasil di edit" })
+                handleShow({ title: "Tidak Mengaudit", content: "tidak ada data yang di edit" })
             }
 
         } else {
