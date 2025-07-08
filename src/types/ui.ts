@@ -22,5 +22,5 @@ export interface PropgressCanvasProps {
 }
 
 export interface ComponentDataInterface {
-    data: Task;
+    data: Task | null;
 }
