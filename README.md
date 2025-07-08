@@ -127,5 +127,5 @@ General Functionality checklist
 | Delete Task | `DONE` |GF.3|
 | Create TaskDetails Component | `DONE` |Reasoning 2|
 | Create Dynamic Page Route | `DONE` |Reasoning 2|
-| Create Toaster Component |  |Reasoning 3|
-| Implement Toaster |  |Reasoning 3|
+| Create Toaster Component | `DONE` |Reasoning 3|
+| Implement Toaster | `DONE` |Reasoning 3|
