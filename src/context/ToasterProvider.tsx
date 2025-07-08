@@ -14,7 +14,7 @@ export default function ToasterProvider({ children }: ComponenChildInterface) {
 
         setTimeout(() => {
             setOpenToaster(false);
-        }, 3000);
+        }, 2000);
     }
 
     return (
