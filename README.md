@@ -187,8 +187,6 @@ src
 
 ### UI Result
 
-<video width="600" height="450" controls>
-  <source src="demo/simple demo.mp4" type="video/mp4">
-</video>
+[![Watch the demo](https://img.youtube.com/vi/tC6vU0URRu0/0.jpg)](https://youtu.be/tC6vU0URRu0)
 
 [Download demo video](demo/simple%20demo.mp4)
