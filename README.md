@@ -190,3 +190,5 @@ src
 <video width="600" height="450" controls>
   <source src="demo/simple demo.mp4" type="video/mp4">
 </video>
+
+[Download demo video](demo/simple%20demo.mp4)
