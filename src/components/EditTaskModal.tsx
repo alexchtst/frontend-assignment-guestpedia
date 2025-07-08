@@ -4,13 +4,14 @@ import { Priority, Progress, Task } from "@/types/task";
 import React from "react";
 
 import { X } from "lucide-react"
+import ToasterContext from "@/context/Toastercontext";
+import { ComponentDataInterface } from "@/types/ui";
 
-interface CompProps {
-    data: Task | null
-}
-
-export default function EditTaskmodal({ data }: CompProps) {
+export default function EditTaskmodal({ data }: ComponentDataInterface) {
     const { setEditDatatask, editData } = React.useContext(TaskContext);
+
+    const { handleShow } = React.useContext(ToasterContext);
+
 
     // form submission
     const [title, setTitle] = React.useState<string>(data?.title ?? '');
@@ -42,11 +43,16 @@ export default function EditTaskmodal({ data }: CompProps) {
                 priority: priority,
                 progress: progress,
             }
-            editData(updated)
-        } else {
-            console.log("data kosong")
-        }
+            if (updated === data) {
+                editData(updated)
+                handleShow({ title: "Auditing Berhasil", content: "data berhasil di edit" })
+            } else {
+                handleShow({ title: "Tidak Mengaudit", content: "tidak ada data yang berhasil di edit" })
+            }
 
+        } else {
+            handleShow({ title: "Gagal", content: "tidak ada data" })
+        }
         setEditDatatask(null);
 
     }

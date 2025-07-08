@@ -3,12 +3,9 @@
 import React from "react";
 import TaskContext from "./Taskcontext";
 import { Progress, Task } from "@/types/task";
+import { ComponenChildInterface } from "@/types/ui";
 
-interface Props {
-    children: React.ReactNode
-}
-
-export default function TaskContextProvider({ children }: Props) {
+export default function TaskContextProvider({ children }: ComponenChildInterface) {
     const [taskData, setTaskData] = React.useState<Task[]>([]);
     const [editedTaskData, setEditedTaskData] = React.useState<Task | null>(null);
 
