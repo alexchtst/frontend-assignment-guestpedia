@@ -106,6 +106,12 @@ where the progress is enum of this : `["TODO, IN PROGRESS", "DONE"]`. While the 
 
 To Implement the CRUD i need a function to do so, it's for create task **[storeData]**, edit data (by id becase id is not editable) `[GF.2]` with **editData** and id is used for delete data too in **deleteData**.
 
+### Reasoning 2
+The Task is not complately done because user can see the task details, so i'm decided to make a page that corespond to specific task. The page is placed in `/taskId` for example `/SM-12`, this page is showing the details of the task. In this page there are back button to back to the main activity such as CRUD actifities and progress task change activity.
+
+### Reasoning 3
+After create, edit and delete there is no notification to tell the user that the action is success or fail. So i decided to create general toaster as a notification.
+
 ### Development Progress
 General Functionality checklist
 | Requirements | DONE/UNDONE   | REASON    |
@@ -119,3 +125,7 @@ General Functionality checklist
 | Edit Task | `DONE` |GF.2|
 | Change Priority | `DONE` |UI.2|
 | Delete Task | `DONE` |GF.3|
+| Create TaskDetails Component |  |Reasoning 2|
+| Create Dynamic Page Route |  |Reasoning 2|
+| Create Toaster Component |  |Reasoning 3|
+| Implement Toaster |  |Reasoning 3|
