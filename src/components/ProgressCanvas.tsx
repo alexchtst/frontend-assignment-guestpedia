@@ -9,16 +9,13 @@ import GenerateId from '@/lib/idGen';
 import TaskContext from '@/context/Taskcontext';
 
 import { OctagonX } from "lucide-react"
+import ToasterContext from '@/context/Toastercontext';
+import { PropgressCanvasProps } from '@/types/ui';
 
-interface CompProps {
-    tasks: Task[]
-    progress: Progress
-    total: number;
-}
-
-export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps) {
+export default function ProgressCanvas({ tasks, progress, total = 0 }: PropgressCanvasProps) {
 
     const { storeData } = React.useContext(TaskContext);
+    const { handleShow } = React.useContext(ToasterContext);
 
     // form submission
     const [openField, setOpenField] = React.useState(false);
@@ -49,6 +46,8 @@ export default function ProgressCanvas({ tasks, progress, total = 0 }: CompProps
         setPriority(Priority.MEDIUM);
         setOpenField(false);
         storeData(task);
+
+        handleShow({title: "Berhasil", content: "Data berashil ditambakan"})
     }
 
     const { setNodeRef } = useDroppable({

@@ -8,6 +8,7 @@ import { Priority, Task } from "@/types/task"
 import { SquareCheck, ChevronsDown, ChevronUp, AlignJustify } from "lucide-react"
 import TaskContext from "@/context/Taskcontext"
 import { redirect } from "next/navigation"
+import ToasterContext from "@/context/Toastercontext"
 
 interface CompProps {
     data: Task;
@@ -15,6 +16,7 @@ interface CompProps {
 
 export default function TaskComponent({ data }: CompProps) {
     const { setEditDatatask, deleteData } = React.useContext(TaskContext);
+    const { handleShow } = React.useContext(ToasterContext);
 
     const { attributes, listeners, setNodeRef, transform } = useDraggable({
         id: data.id,
@@ -26,6 +28,11 @@ export default function TaskComponent({ data }: CompProps) {
         position: transform ? 'absolute' : 'static',
         width: transform ? '88.5%' : '100%'
     };
+
+    function hanldeDelete() {
+        deleteData(data.id.toString())
+        handleShow({ title: 'Menghapus', content: "data berhasil dihapus" })
+    }
 
     return (
         <div
@@ -70,7 +77,7 @@ export default function TaskComponent({ data }: CompProps) {
                     </button>
                     <button
                         className="px-2 py-1 bg-red-500 text-[10px] rounded-lg font-semibold cursor-pointer text-white hover:bg-red-800"
-                        onClick={() => deleteData(data.id.toString())}
+                        onClick={() => { hanldeDelete() }}
                     >
                         delete
                     </button>
