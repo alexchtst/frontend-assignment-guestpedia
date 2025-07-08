@@ -7,6 +7,7 @@ import { Priority, Task } from "@/types/task"
 
 import { SquareCheck, ChevronsDown, ChevronUp, AlignJustify } from "lucide-react"
 import TaskContext from "@/context/Taskcontext"
+import { redirect } from "next/navigation"
 
 interface CompProps {
     data: Task;
@@ -55,6 +56,12 @@ export default function TaskComponent({ data }: CompProps) {
                 </div>
 
                 <div className="flex items-center space-x-2">
+                    <button
+                        className="px-2 py-1 bg-green-500 text-[10px] rounded-lg font-semibold cursor-pointer text-white hover:bg-green-800"
+                        onClick={() => redirect(`/${data.id.toString()}`)}
+                    >
+                        details
+                    </button>
                     <button
                         className="px-2 py-1 bg-yellow-300 text-[10px] rounded-lg font-semibold cursor-pointer hover:bg-yellow-500"
                         onClick={() => { setEditDatatask(data) }}
