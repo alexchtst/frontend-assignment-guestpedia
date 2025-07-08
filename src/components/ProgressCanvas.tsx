@@ -125,7 +125,7 @@ export default function ProgressCanvas({ tasks, progress, total = 0 }: Propgress
                             value={desc}
                             onChange={(e) => setDesc(e.target.value)}
                         />
-                        <button className="cursor-pointer bg-blue-800 py-2 px-5 text-white rounded-md" type='submit'>
+                        <button className="cursor-pointer bg-blue-800 hover:bg-blue-900 py-2 px-5 text-white rounded-md" type='submit'>
                             Create
                         </button>
                     </form>
